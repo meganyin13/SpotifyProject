@@ -1,0 +1,5 @@
+### Proposal
+
+Spotify is one of the biggest music streaming services and we’re interested in how it has impacted the industry. Our question is “how has music taste changed over time?” In particular, we think Spotify itself has changed the way music is produced, popularized, and distributed. For example, we’ve noticed that songs have become shorter in length, perhaps to generate more streams (which affects how artists get paid on the platform). We’ve also noticed that it’s easier now to discover independent artists. 
+
+The data set we are using to answer our question is the [Spotify Dataset from Kaggle](https://www.kaggle.com/yamaerenay/spotify-dataset-19212020-160k-tracks). This dataset has 160,000+ songs with features on artist, genre, etc. This data is also dated so we can see how songs from before Spotify (~2010) differ from those after. We may also use [Spotify’s API](https://developer.spotify.com/documentation/web-api/reference/tracks/get-track/) to get additional information not provided in the dataset like the number of streams for a song. 
