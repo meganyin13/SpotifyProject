@@ -1,3 +1,5 @@
+hehe example commit for fionna
+
 # Midterm Report
 ### Megan Yin, Fionna Chen
 
@@ -77,5 +79,4 @@ To prevent overfitting, we should separate our data into the 80/20 train test se
 
 ## Naive Regressions
 We wanted to get a sense of how our model would perform if we just trained models on
-
 
