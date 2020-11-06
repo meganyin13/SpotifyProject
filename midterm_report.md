@@ -1,5 +1,3 @@
-hehe example commit for fionna
-
 # Midterm Report
 ### Megan Yin, Fionna Chen
 
