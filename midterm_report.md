@@ -1,3 +1,5 @@
+branch commit
+
 # Midterm Report
 ### Megan Yin, Fionna Chen
 
