@@ -13,7 +13,9 @@ The Spotify dataset contains 5 tables on song data:
 
 ### Features
 
-Descriptions based on [Audio Features](https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-features/) in [Spotify Web API](https://developer.spotify.com/documentation/web-api/)
+In this dataset we have 19 features and 169909 examples. We have numerical, boolean, and categorical features described below.
+
+<small> Descriptions based on [Audio Features](https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-features/) in [Spotify Web API](https://developer.spotify.com/documentation/web-api/) </small>
 
 #### Numerical
 * acousticness (0.0-1.0): A confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic. 
@@ -42,7 +44,7 @@ Descriptions based on [Audio Features](https://developer.spotify.com/documentati
 ### Histograms
 We wanted to get a sense of the distribution of our data on some of these (numerical) features so we used the pandas `Dataframe.hist` function to plot histograms of key features.
 
-<img src="./imgs/data-histograms.png">
+<img src="./imgs/data-histograms.png" />
 
 Observations:
 * acousticness: we usually have high confidence on whether a track is acoustic or not. (Most tracks are in the 0-0.1 or 0.9-1.0 range of acousticness). If these acousticness scores are accurate, we have about an equal distribution of acoustic vs. not acoustic tracks
@@ -57,5 +59,23 @@ Observations:
 * tempo: We don't have any very slow songs (tempos are all > 50). Tempos are normally distributed with some very fast songs.
 * valence: also rather normally distributed which means we have a variety of moods present in the dataset.
 * year: we consistently have 2000 songs for every year after around 1950. Before then, the number of songs for each year was increasing. 
+
+## Missing Values
+We're lucky to not have any missing values in this dataset. This is likely because the data comes from the Spotify API directly and we limit ourselves to only songs from there. Thus any songs Spotify has would have all of these features defined and outputted in the API.
+
+## Feature Transformations
+The `artist` feature column is a list of artists on that track. The elements of that list are strings with the names of the artist. We can encode this in a many hot encoding such that a $1$ in column $i$ means artist $i$ is featured on that track. This can be interesting for us to predict popularity or see how certain artists have gotten more popular over time. Certainly, we have seen the artist has a huge effect on the popularity of a song which is why smaller artists try to work on songs with more popular artists.
+
+Most other features have already been scaled and normalized for us on a 0-1 scale fortunately so we should be fine to use the raw data. Perhaps to reduce noise, we may consider changing some of these values to boolean. This may also help overfitting. 
+
+## Over and Underfitting
+If we were to just use the 19 features as is we run a risk of underfitting the model since there are just too few features to capture the 160k+ examples. However, we will expand the artists feature to a many-hot encoded vector representing artists on the track. This will drastically increase the number of features, but this is still a sparse matrix. 
+
+Other ways to avoid underfitting is by fitting a more complex model. For example, we can experiment with various forms of Polynomial Regression or random forest/SVM regressions.
+
+To prevent overfitting, we should separate our data into the 80/20 train test set split. We will also look into applying 10-fold cross validation. 
+
+## Naive Regressions
+We wanted to get a sense of how our model would perform if we just trained models on
 
 
