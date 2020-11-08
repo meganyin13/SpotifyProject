@@ -1,7 +1,5 @@
-branch commit
-
 # Midterm Report
-### Megan Yin, Fionna Chen
+### Megan Yin (my474), Fionna Chen (fyc3)
 
 ## The Data
 
