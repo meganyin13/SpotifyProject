@@ -24,7 +24,7 @@ In this dataset we have 19 features and 169909 examples. We have numerical, bool
 * duration_ms (int): duration of track in milliseconds
 * instrumentalness (0.0-1.0): Predicts whether a track contains no vocals. “Ooh” and “aah” sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly “vocal”. The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content. _Values above 0.5 are intended to represent instrumental tracks_, but confidence is higher as the value approaches 1.0.
 * valence (0.0-1.0): A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry). 
-* popularity 
+* popularity (0-100, int): measure of how popular a song is. 0 very unpopular, 100 very popular.
 * tempo (float): The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration.
 * liveness (0.0-1.0): Detects the presence of an audience in the recording. Higher liveness values represent an increased probability that the track was performed live. A value above 0.8 provides strong likelihood that the track is live.
 * loudness (float): The overall loudness of a track in decibels (dB). Loudness values are averaged across the entire track and are useful for comparing relative loudness of tracks. Loudness is the quality of a sound that is the primary psychological correlate of physical strength (amplitude). Values typical range between -60 and 0 db.
@@ -60,11 +60,19 @@ Observations:
 * valence: also rather normally distributed which means we have a variety of moods present in the dataset.
 * year: we consistently have 2000 songs for every year after around 1950. Before then, the number of songs for each year was increasing. 
 
+## Corr Plot
+
+<img src="./imgs/data-corrplot.png" />
+
+We see the features most strongly correlated with popularity are year, energy, loudness, and acousticness. Energy, loudness, and acoustic make sense since pop songs tend to be very upbeat and loud (makes for a better concert experience). However, year is surprising. This may indicate some bias in our data that for more recent years, so many songs get released only the most popular are included in this dataset. As we train our model, we should keep these key features in mind especially as we try to train a sparse model.
+
 ## Missing Values
 We're lucky to not have any missing values in this dataset. This is likely because the data comes from the Spotify API directly and we limit ourselves to only songs from there. Thus any songs Spotify has would have all of these features defined and outputted in the API.
 
 ## Feature Transformations
 The `artist` feature column is a list of artists on that track. The elements of that list are strings with the names of the artist. We can encode this in a many hot encoding such that a $1$ in column $i$ means artist $i$ is featured on that track. This can be interesting for us to predict popularity or see how certain artists have gotten more popular over time. Certainly, we have seen the artist has a huge effect on the popularity of a song which is why smaller artists try to work on songs with more popular artists.
+
+We also have a textual feature on the name of the song. Certain words in the song may be indicators that it will be very popular. We may consider assigning weights to certain words if they appear in the song name. Words like 'Symphony' could indicate the type of song as well. 
 
 Most other features have already been scaled and normalized for us on a 0-1 scale fortunately so we should be fine to use the raw data. Perhaps to reduce noise, we may consider changing some of these values to boolean. This may also help overfitting. 
 
@@ -77,4 +85,15 @@ To prevent overfitting, we should separate our data into the 80/20 train test se
 
 ## Naive Regressions
 We wanted to get a sense of how our model would perform if we just trained models on
+
+## Semester Plan
+
+Now that we've explored our data, we can begin to think about how to apply better feature transformations and choose better models to make better predictions on popularity. Here are some ideas we're excited to explore further:
+
+* apply many hot encoding feature transformation on `artists` feature
+* look into splitting dataset by year to still predict population, but now we can see what trends exist yearly. This will reduce the noise in our dataset since songs and tastes from 1921 vs 2020 are very different. 
+  * we may use one of the Naive Regressions as a baseline but consider how we can tune parameters or do better regularization 
+  * when choosing our model we should prefer sparse models (e.g. Lasso/Non-negative least squares) to reduce the complexity of the model
+* apply k-means clustering to see if we can identify songs of similar artists
+
 
