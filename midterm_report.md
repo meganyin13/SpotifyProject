@@ -70,7 +70,7 @@ We see the features most strongly correlated with popularity are year, energy, l
 We're lucky to not have any missing values in this dataset. This is likely because the data comes from the Spotify API directly and we limit ourselves to only songs from there. Thus any songs Spotify has would have all of these features defined and outputted in the API.
 
 ## Feature Transformations
-The `artist` feature column is a list of artists on that track. The elements of that list are strings with the names of the artist. We can encode this in a many hot encoding such that a $1$ in column $i$ means artist $i$ is featured on that track. This can be interesting for us to predict popularity or see how certain artists have gotten more popular over time. Certainly, we have seen the artist has a huge effect on the popularity of a song which is why smaller artists try to work on songs with more popular artists.
+The `artist` feature column is a list of artists on that track. The elements of that list are strings with the names of the artist. We can encode this in a many hot encoding such that a 1 in column i means artist i is featured on that track. This can be interesting for us to predict popularity or see how certain artists have gotten more popular over time. Certainly, we have seen the artist has a huge effect on the popularity of a song which is why smaller artists try to work on songs with more popular artists.
 
 We also have a textual feature on the name of the song. Certain words in the song may be indicators that it will be very popular. We may consider assigning weights to certain words if they appear in the song name. Words like 'Symphony' could indicate the type of song as well. 
 
